@@ -1,0 +1,17 @@
+{
+  "spec": "test/e2e/**/*.test.js",
+  "require": "test/support/globalHooks.js",
+  "timeout": 30000,
+  "reporter": "mochawesome",
+  "reporter-option": [
+    "reportDir=reports/mochawesome",
+    "reportFilename=index",
+    "reportTitle=NutriMacros - Pruebas Automatizadas con Selenium WebDriver",
+    "reportPageTitle=NutriMacros - Reporte de Pruebas",
+    "overwrite=true",
+    "html=true",
+    "json=true",
+    "charts=true",
+    "code=true"
+  ]
+}
