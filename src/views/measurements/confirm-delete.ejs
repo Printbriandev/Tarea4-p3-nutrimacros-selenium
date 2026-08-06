@@ -1,0 +1,23 @@
+<%- include('../partials/header', { title: 'Eliminar medicion' }) %>
+
+<section class="card card-narrow">
+  <h1>Eliminar medicion</h1>
+  <p id="confirm-question">Estas seguro de que deseas eliminar la medicion del <strong><%= measurement.date %></strong>?</p>
+
+  <ul class="summary">
+    <li>Peso: <%= measurement.weightLb %> lb</li>
+    <li>Altura: <%= measurement.heightIn %> in</li>
+    <li>Torso: <%= measurement.chestCm %> cm</li>
+    <li>Brazo: <%= measurement.armCm %> cm</li>
+    <li>Objetivo: <%= measurement.goal %></li>
+  </ul>
+
+  <div class="form-actions">
+    <form method="post" action="/measurements/<%= measurement.id %>/delete">
+      <button type="submit" id="confirm-delete-btn" class="btn btn-danger">Si, eliminar</button>
+    </form>
+    <a id="cancel-delete-link" class="btn btn-ghost" href="/measurements">Cancelar</a>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

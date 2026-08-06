@@ -1,0 +1,73 @@
+<%- include('../partials/header', { title: 'Plan nutricional' }) %>
+
+<h1>Plan nutricional por presupuesto</h1>
+
+<section class="card">
+  <% if (latest) { %>
+    <p id="latest-measurement" class="muted">
+      Ultima medicion: <%= latest.date %> &middot; <%= latest.weightLb %> lb &middot;
+      <%= latest.heightIn %> in &middot; objetivo: <%= latest.goal %>
+    </p>
+  <% } else { %>
+    <p id="no-measurement" class="muted">Aun no has registrado mediciones corporales.</p>
+  <% } %>
+
+  <form method="post" action="/nutrition/plan" novalidate>
+    <div class="field">
+      <label for="budget">Presupuesto semanal (RD$)</label>
+      <input type="text" id="budget" name="budget" value="<%= budget %>" placeholder="Ej: 2500">
+      <% if (error) { %><span class="field-error" data-field="budget"><%= error %></span><% } %>
+    </div>
+    <button type="submit" id="calculate-btn" class="btn btn-primary">Calcular plan</button>
+  </form>
+</section>
+
+<% if (macros) { %>
+  <section id="macros-summary" class="card">
+    <h2>Tus macros diarios estimados</h2>
+    <div class="macro-grid">
+      <div class="macro"><span class="macro-label">Calorias</span><span id="macro-kcal" class="macro-value"><%= macros.kcal %></span><span class="macro-unit">kcal</span></div>
+      <div class="macro"><span class="macro-label">Proteina</span><span id="macro-protein" class="macro-value"><%= macros.proteinaG %></span><span class="macro-unit">g</span></div>
+      <div class="macro"><span class="macro-label">Carbohidratos</span><span id="macro-carbs" class="macro-value"><%= macros.carbosG %></span><span class="macro-unit">g</span></div>
+      <div class="macro"><span class="macro-label">Grasas</span><span id="macro-fat" class="macro-value"><%= macros.grasaG %></span><span class="macro-unit">g</span></div>
+    </div>
+    <p class="muted">Tasa metabolica basal estimada: <span id="macro-tmb"><%= macros.tmb %></span> kcal</p>
+  </section>
+<% } %>
+
+<% if (sugerencias) { %>
+  <section class="card">
+    <h2>Alimentos sugeridos dentro de tu presupuesto</h2>
+    <% if (sugerencias.length === 0) { %>
+      <p id="no-suggestions" class="empty">No se encontraron alimentos dentro de tu presupuesto</p>
+    <% } else { %>
+      <table id="food-suggestions" class="table">
+        <thead>
+          <tr>
+            <th>Alimento</th>
+            <th>Porcion</th>
+            <th>Precio (RD$)</th>
+            <th>Proteina (g)</th>
+            <th>Calorias</th>
+            <th>Porciones que puedes comprar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% sugerencias.forEach(function (a) { %>
+            <tr data-food-id="<%= a.id %>">
+              <td class="food-name"><%= a.nombre %></td>
+              <td><%= a.porcion %></td>
+              <td class="food-price"><%= a.precioRD %></td>
+              <td><%= a.proteinaG %></td>
+              <td><%= a.kcal %></td>
+              <td class="food-servings"><%= a.porcionesPosibles %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+      <p class="muted">Ordenados por mayor aporte de proteina por peso invertido.</p>
+    <% } %>
+  </section>
+<% } %>
+
+<%- include('../partials/footer') %>

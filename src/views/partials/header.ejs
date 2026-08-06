@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> | NutriMacros</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="/">NutriMacros</a>
+  <% if (user) { %>
+    <nav class="nav">
+      <a id="nav-measurements" href="/measurements">Mediciones</a>
+      <a id="nav-nutrition" href="/nutrition">Plan nutricional</a>
+    </nav>
+    <form class="logout-form" method="post" action="/logout">
+      <span id="current-user"><%= user.fullName %></span>
+      <button id="logout-btn" type="submit" class="btn btn-ghost">Cerrar sesion</button>
+    </form>
+  <% } %>
+</header>
+<main class="container">

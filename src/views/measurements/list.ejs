@@ -1,0 +1,46 @@
+<%- include('../partials/header', { title: 'Mediciones' }) %>
+
+<div class="page-head">
+  <h1>Mediciones corporales</h1>
+  <a id="new-measurement-btn" class="btn btn-primary" href="/measurements/new">Nueva medicion</a>
+</div>
+
+<% if (flash) { %>
+  <p id="flash-<%= flash.tipo %>" class="alert alert-<%= flash.tipo %>"><%= flash.texto %></p>
+<% } %>
+
+<% if (measurements.length === 0) { %>
+  <p id="empty-state" class="empty">No hay mediciones registradas</p>
+<% } else { %>
+  <table id="measurements-table" class="table">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Peso (lb)</th>
+        <th>Altura (in)</th>
+        <th>Torso (cm)</th>
+        <th>Brazo (cm)</th>
+        <th>Objetivo</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% measurements.forEach(function (m) { %>
+        <tr data-measurement-id="<%= m.id %>">
+          <td class="measurement-date"><%= m.date %></td>
+          <td class="measurement-weight"><%= m.weightLb %></td>
+          <td class="measurement-height"><%= m.heightIn %></td>
+          <td class="measurement-chest"><%= m.chestCm %></td>
+          <td class="measurement-arm"><%= m.armCm %></td>
+          <td class="measurement-goal"><%= m.goal %></td>
+          <td class="actions">
+            <a class="edit-link" data-measurement-id="<%= m.id %>" href="/measurements/<%= m.id %>/edit">Editar</a>
+            <a class="delete-link" data-measurement-id="<%= m.id %>" href="/measurements/<%= m.id %>/delete/confirm">Eliminar</a>
+          </td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+<% } %>
+
+<%- include('../partials/footer') %>

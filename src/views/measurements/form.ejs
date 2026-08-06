@@ -1,0 +1,56 @@
+<%- include('../partials/header', { title: mode === 'create' ? 'Nueva medicion' : 'Editar medicion' }) %>
+
+<section class="card">
+  <h1 id="form-title"><%= mode === 'create' ? 'Nueva medicion' : 'Editar medicion' %></h1>
+
+  <form method="post" action="<%= action %>" novalidate>
+    <div class="field">
+      <label for="date">Fecha</label>
+      <input type="date" id="date" name="date" value="<%= values.date || '' %>">
+      <% if (errors.date) { %><span class="field-error" data-field="date"><%= errors.date %></span><% } %>
+    </div>
+
+    <div class="grid-2">
+      <div class="field">
+        <label for="weightLb">Peso (lb)</label>
+        <input type="text" id="weightLb" name="weightLb" value="<%= values.weightLb || '' %>">
+        <% if (errors.weightLb) { %><span class="field-error" data-field="weightLb"><%= errors.weightLb %></span><% } %>
+      </div>
+
+      <div class="field">
+        <label for="heightIn">Altura (pulgadas)</label>
+        <input type="text" id="heightIn" name="heightIn" value="<%= values.heightIn || '' %>">
+        <% if (errors.heightIn) { %><span class="field-error" data-field="heightIn"><%= errors.heightIn %></span><% } %>
+      </div>
+
+      <div class="field">
+        <label for="chestCm">Torso (cm)</label>
+        <input type="text" id="chestCm" name="chestCm" value="<%= values.chestCm || '' %>">
+        <% if (errors.chestCm) { %><span class="field-error" data-field="chestCm"><%= errors.chestCm %></span><% } %>
+      </div>
+
+      <div class="field">
+        <label for="armCm">Brazo (cm)</label>
+        <input type="text" id="armCm" name="armCm" value="<%= values.armCm || '' %>">
+        <% if (errors.armCm) { %><span class="field-error" data-field="armCm"><%= errors.armCm %></span><% } %>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="goal">Objetivo</label>
+      <select id="goal" name="goal">
+        <% objetivos.forEach(function (o) { %>
+          <option value="<%= o %>" <%= values.goal === o ? 'selected' : '' %>><%= o %></option>
+        <% }); %>
+      </select>
+      <% if (errors.goal) { %><span class="field-error" data-field="goal"><%= errors.goal %></span><% } %>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" id="save-btn" class="btn btn-primary">Guardar</button>
+      <a id="cancel-link" class="btn btn-ghost" href="/measurements">Cancelar</a>
+    </div>
+  </form>
+</section>
+
+<%- include('../partials/footer') %>

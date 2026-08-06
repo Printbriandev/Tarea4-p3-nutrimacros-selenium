@@ -1,0 +1,26 @@
+<%- include('partials/header', { title: 'Iniciar sesion' }) %>
+
+<section class="card card-narrow">
+  <h1>Iniciar sesion</h1>
+  <p class="muted">Accede para gestionar tus mediciones corporales y tu plan nutricional.</p>
+
+  <% if (error) { %>
+    <p class="alert alert-error"><%= error %></p>
+  <% } %>
+
+  <form method="post" action="/login" novalidate>
+    <div class="field">
+      <label for="username">Usuario</label>
+      <input type="text" id="username" name="username" value="<%= username %>" autocomplete="username">
+    </div>
+    <div class="field">
+      <label for="password">Contrasena</label>
+      <input type="password" id="password" name="password" autocomplete="current-password">
+    </div>
+    <button type="submit" id="login-submit" class="btn btn-primary btn-block">Entrar</button>
+  </form>
+
+  <p class="hint">Credenciales de prueba: <strong>admin</strong> / <strong>Admin123!</strong></p>
+</section>
+
+<%- include('partials/footer') %>
